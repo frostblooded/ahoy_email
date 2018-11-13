@@ -26,6 +26,8 @@ module AhoyEmail
     def save_ahoy_options
       if ahoy_options[:message]
         Safely.safely do
+          Rails.logger.info "Ahoy options: #{ahoy_options}"
+
           options = {}
           ahoy_options.each do |k, v|
             # execute options in mailer content

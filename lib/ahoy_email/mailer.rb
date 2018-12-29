@@ -17,16 +17,22 @@ module AhoyEmail
 
     def track(**options)
       self.ahoy_options = ahoy_options.merge(message: true).merge(options)
+      Rails.logger.info "#track: options: #{options}"
+      Rails.logger.info "#track: ahoy_options: #{ahoy_options}"
     end
 
     def ahoy_options
       @ahoy_options ||= AhoyEmail.default_options
+      Rails.logger.info "#ahoy_options: @ahoy_options: #{@ahoy_options}"
+      Rails.logger.info "#ahoy_options: AhoyEmail.default_options: #{AhoyEmail.default_options}"
     end
 
     def save_ahoy_options
+      Rails.logger.info "save_ahoy_options: ahoy_options: #{ahoy_options}"
+
       if ahoy_options[:message]
         Safely.safely do
-          Rails.logger.info "Ahoy options: #{ahoy_options}"
+          Rails.logger.info "save_ahoy_options inside Safely: ahoy_options: #{ahoy_options}"
 
           options = {}
           ahoy_options.each do |k, v|

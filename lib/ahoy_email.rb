@@ -30,8 +30,8 @@ module AhoyEmail
     utm_content: nil,
     utm_campaign: -> { action_name },
     user: -> do
-      Rails.logger.info "Proc user: #{@user}"
-      Rails.logger.info "Message: #{message}"
+      Rails.logger.info "user proc: @user: #{@user}"
+      Rails.logger.info "user proc: message: #{message}"
 
       @user || (respond_to?(:params) && params && params[:user]) || (message.to.size == 1 ? (User.find_by(email: message.to.first) rescue nil) : nil)
     end,

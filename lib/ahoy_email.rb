@@ -33,7 +33,7 @@ module AhoyEmail
       Rails.logger.info "user proc: @user: #{@user}"
       Rails.logger.info "user proc: message: #{message}"
 
-      @user || (respond_to?(:params) && params && params[:user]) || (message.to.size == 1 ? (User.find_by(email: message.to.first) rescue nil) : nil)
+      @user || (respond_to?(:params) && params && params[:user]) || (message.to.try(:size) == 1 ? (User.find_by(email: message.to.first) rescue nil) : nil)
     end,
     mailer: -> { "#{self.class.name}##{action_name}" },
     url_options: {},
